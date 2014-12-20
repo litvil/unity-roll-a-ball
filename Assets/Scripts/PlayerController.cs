@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	public float speed = 10;
+	private int count;
+	public Text text;
+	public Text winText;
 
-	void Update(){
-
+	void Start(){
+		count = 0;
+		setCountText ();
+		winText.text = "";
 	}
 
 
@@ -19,6 +25,16 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "PickUp") {
 			other.gameObject.SetActive (false);		
+			count++;
+			setCountText();
+		}
+	}
+
+	void setCountText ()
+	{
+		text.text = "Count: " + count.ToString ();
+		if (count >= 12) {
+				winText.text = "You are winner!";
 		}
 	}
 }
